@@ -38,7 +38,7 @@ namespace Pet.Controllers
         public IActionResult New(Animal animal)
         {
             _animalRepository.Create(animal);
-            return View();
+            return RedirectToAction("Index");
         }
 
         public IActionResult Delete(int id)

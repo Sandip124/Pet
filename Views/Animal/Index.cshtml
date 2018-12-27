@@ -1,0 +1,24 @@
+@Model List<Animal>
+
+    <h2>All Animals</h2>
+    <table class="table table-bodered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Color</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var animal in Model)
+            {
+                <tr>
+                    <td>@animal.Id</td>
+                    <td>@animal.Name</td>
+                    <td>@animal.Age</td>
+                    <td>@animal.Color</td>
+                </tr>
+            }
+        </tbody>
+    </table>
