@@ -2,6 +2,7 @@
 
 <form asp-action="New" asp-controller="Animal" method="POST" >
     <input asp-for="Id" type="hidden">
+    <input name="IsEditMode" id ="IsEditMode" value="@ViewBag.IsEditMode" type="hidden">
 
     <div class="form-group">
         <label asp-for="Name">Name</label>

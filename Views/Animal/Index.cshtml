@@ -10,6 +10,7 @@
                 <th>Name</th>
                 <th>Age</th>
                 <th>Color</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -20,6 +21,20 @@
                     <td>@animal.Name</td>
                     <td>@animal.Age</td>
                     <td>@animal.Color</td>
+                    <td>
+                        <a 
+                        asp-action="Edit"
+                        class="btn btn-info" 
+                        asp-route-Id="@animal.Id">
+                         Edit</a>&nbsp;
+                        <a 
+                        class="btn btn-danger delete" 
+                        data-id="@animal.Id"
+                        data-controller="Animal"
+                        data-action="delete"
+                        data-body-message="Are you sure want to delete?"
+                        >Delete</a>
+                    </td>
                 </tr>
             }
         </tbody>

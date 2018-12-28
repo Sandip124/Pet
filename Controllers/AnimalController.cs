@@ -30,22 +30,34 @@ namespace Pet.Controllers
         [HttpGet]
         public IActionResult New()
         {
+            ViewBag.IsEditMode = "FALSE";
             var animal = new Animal();
             return View(animal);
         }
 
         [HttpPost]
-        public IActionResult New(Animal animal)
+        public IActionResult New(Animal animal,string IsEditMode)
         {
+            if(IsEditMode.Equals("FALSE")){
             _animalRepository.Create(animal);
+            }else{
+                _animalRepository.Edit(animal);
+            }
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            ViewBag.IsEditMode = "TRUE";
+            var animal = _animalRepository.GetSingleAnimal(id);
+            return View("new",animal);
+        }
         public IActionResult Delete(int id)
         {
             var  animal = _animalRepository.GetSingleAnimal(id);
             _animalRepository.Delete(animal);
-            return View();
+            return RedirectToAction(nameof(Index));
         }
 
     }
