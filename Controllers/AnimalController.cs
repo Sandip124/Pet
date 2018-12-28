@@ -5,7 +5,7 @@ using Pet.Repository;
 
 namespace Pet.Controllers
 {
-    class AnimalController: Controller
+    public class AnimalController : Controller
     {
         private ApplicationDbContext _context;
         private AnimalRepository _animalRepository;
@@ -17,28 +17,28 @@ namespace Pet.Controllers
         }
         public IActionResult Index()
         {
-            var animals = _animalRepository.GetAllAnimals();
-            return View(animals);
+            var animal = _animalRepository.GetAllAnimals();
+            return View(animal);
         }
 
         public IActionResult Details(int id)
         {
-            var animals = _animalRepository.GetSingleAnimal(id);
-            return View(animals);
+            var animal = _animalRepository.GetSingleAnimal(id);
+            return View(animal);
         }
 
         [HttpGet]
         public IActionResult New()
         {
-            var animals = new Animal();
-            return View(animals);
+            var animal = new Animal();
+            return View(animal);
         }
 
         [HttpPost]
         public IActionResult New(Animal animal)
         {
             _animalRepository.Create(animal);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Delete(int id)
