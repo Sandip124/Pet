@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Pet.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace Pet
 {
@@ -52,6 +54,12 @@ namespace Pet
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseStaticFiles(new StaticFileOptions{
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),"node_modules")),
+                RequestPath =  new PathString("/vendor")    
+            });
+
             app.UseCookiePolicy();
 
             app.UseAuthentication();
