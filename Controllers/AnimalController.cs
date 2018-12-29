@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using Pet.Data;
 using Pet.Models;
@@ -36,28 +37,55 @@ namespace Pet.Controllers
         }
 
         [HttpPost]
-        public IActionResult New(Animal animal,string IsEditMode)
+        public IActionResult New(Animal animal, string IsEditMode)
         {
-            if(IsEditMode.Equals("FALSE")){
-            _animalRepository.Create(animal);
-            }else{
-                _animalRepository.Edit(animal);
+            try
+            {
+                if (IsEditMode.Equals("FALSE"))
+                {
+                    _animalRepository.Create(animal);
+                }
+                else
+                {
+                    _animalRepository.Edit(animal);
+                }
+                return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction(nameof(Index));
+            catch (Exception)
+            {
+                return Content("Could not add or edit Animal");
+            }
+
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            ViewBag.IsEditMode = "TRUE";
-            var animal = _animalRepository.GetSingleAnimal(id);
-            return View("new",animal);
+            try
+            {
+                ViewBag.IsEditMode = "TRUE";
+                var animal = _animalRepository.GetSingleAnimal(id);
+                return View("new", animal);
+            }
+            catch (Exception)
+            {
+                return Content("Couldn't find the animal");
+            }
+
         }
         public IActionResult Delete(int id)
         {
-            var  animal = _animalRepository.GetSingleAnimal(id);
-            _animalRepository.Delete(animal);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var animal = _animalRepository.GetSingleAnimal(id);
+                _animalRepository.Delete(animal);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception)
+            {
+                return Content("Couldn't delete the animal.");
+            }
+
         }
 
     }
