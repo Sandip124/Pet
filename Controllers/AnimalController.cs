@@ -10,15 +10,14 @@ namespace Pet.Controllers
 {
     public class AnimalController : Controller
     {
-        private ApplicationDbContext _context;
-        private AnimalRepository _animalRepository;
+        private IAnimalRepository _animalRepository;
 
         private IClientNotification _clientNotification;
 
-        public AnimalController(ApplicationDbContext context,IClientNotification clientNotification)
+        public AnimalController(IClientNotification clientNotification,
+                                IAnimalRepository animalRepository)
         {
-            _context = context;
-            _animalRepository = new AnimalRepository(_context);
+            _animalRepository = animalRepository;
             _clientNotification = clientNotification;
         }
         public IActionResult Index()

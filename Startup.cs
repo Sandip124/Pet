@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using ClientNotifications.ServiceExtensions;
+using Pet.Repository;
 
 namespace Pet
 {
@@ -37,6 +38,8 @@ namespace Pet
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddScoped<Repository.IAnimalRepository, Repository.AnimalRepository>();
+            
+            // services.AddTransient<IAnimalRepository,AnimalRepository>();
             
             services.AddToastNotification();
 
