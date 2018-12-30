@@ -1,9 +1,9 @@
-$((function(){
-            var url;
-            var redirectUrl;
-            var target;
+$((function () {
+    var url;
+    var redirectUrl;
+    var target;
 
-            $('body').append(`
+    $('body').append(`
                     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -22,36 +22,40 @@ $((function(){
                     </div>
                     </div>`);
 
-            //Delete Action
-            $(".delete").on('click',(e)=>{
-                e.preventDefault();
+    //Delete Action
+    $(".delete").on('click', (e) => {
+        e.preventDefault();
 
-                target = e.target;
-                var Id = $(target).data('id');
-                var controller = $(target).data('controller');
-                var action = $(target).data('action');
-                var bodyMessage = $(target).data('body-message');
-                redirectUrl = $(target).data('redirect-url');
+        target = e.target;
+        var Id = $(target).data('id');
+        var controller = $(target).data('controller');
+        var action = $(target).data('action');
+        var bodyMessage = $(target).data('body-message');
+        redirectUrl = $(target).data('redirect-url');
 
-                url = "/"+controller+"/"+action+"?Id="+Id;
-                $(".delete-modal-body").text(bodyMessage);
-                $("#deleteModal").modal('show');
+        url = "/" + controller + "/" + action + "?Id=" + Id;
+        $(".delete-modal-body").text(bodyMessage);
+        $("#deleteModal").modal('show');
+    });
+
+    $("#confirm-delete").on('click', () => {
+        $.get(url)
+            .done((result) => {
+
+                swal("Success", "Animal Deleted Successfully.", "success");
+                if (!redirectUrl) {
+                    return $(target).parent().parent().hide("slow");
+                }
+                window.location.href = redirectUrl;
+            })
+            .fail((error) => {
+                swal("Error", "Error occur while deleting Animal!", "error");
+
+                if (redirectUrl)
+                    window.location.href = redirectUrl;
+            }).always(() => {
+                $("#deleteModal").modal('hide');
             });
+    });
 
-            $("#confirm-delete").on('click',()=>{
-                $.get(url)
-                    .done((result)=>{
-                        if(!redirectUrl){
-                            return $(target).parent().parent().hide("slow");
-                        }
-                        window.location.href = redirectUrl;                    
-                    })
-                    .fail((error)=>{ 
-                        if(redirectUrl)             
-                            window.location.href = redirectUrl;
-                    }).always(()=>{
-                        $("#deleteModal").modal('hide');                    
-                    });
-            });
-
-        }()));
+}()));

@@ -98,11 +98,11 @@ namespace Pet.Controllers
                 var animal = _animalRepository.GetSingleAnimal(id);
                 _animalRepository.Delete(animal);
 
-                return RedirectToAction(nameof(Index));
+                return Ok();
             }
             catch (Exception)
             {
-                return Content("Couldn't delete the animal.");
+                return BadRequest();
             }
 
         }
