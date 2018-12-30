@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
+using ClientNotifications.ServiceExtensions;
 
 namespace Pet
 {
@@ -34,7 +35,11 @@ namespace Pet
                 options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
             services.AddScoped<Repository.IAnimalRepository, Repository.AnimalRepository>();
+            
+            services.AddToastNotification();
+
             services.AddMvc();
         }
 

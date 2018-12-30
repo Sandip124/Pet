@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Sandip124/Pet#readme",
   "dependencies": {
+    "bootstrap-sweetalert": "^1.0.1",
     "toastr": "^2.1.4"
   }
 }

@@ -1,8 +1,10 @@
 using System;
+using ClientNotifications;
 using Microsoft.AspNetCore.Mvc;
 using Pet.Data;
 using Pet.Models;
 using Pet.Repository;
+using static ClientNotifications.Helpers.NotificationHelper;
 
 namespace Pet.Controllers
 {
@@ -11,10 +13,13 @@ namespace Pet.Controllers
         private ApplicationDbContext _context;
         private AnimalRepository _animalRepository;
 
-        public AnimalController(ApplicationDbContext context)
+        private IClientNotification _clientNotification;
+
+        public AnimalController(ApplicationDbContext context,IClientNotification clientNotification)
         {
             _context = context;
             _animalRepository = new AnimalRepository(_context);
+            _clientNotification = clientNotification;
         }
         public IActionResult Index()
         {
@@ -44,16 +49,29 @@ namespace Pet.Controllers
                 if (IsEditMode.Equals("FALSE"))
                 {
                     _animalRepository.Create(animal);
+
+                    _clientNotification.AddSweetNotification("Success",
+                                  "Animal detail added Successfully.",
+                                  NotificationType.success);
                 }
                 else
                 {
                     _animalRepository.Edit(animal);
+
+                    _clientNotification.AddSweetNotification("Success",
+                                 "Animal detail updated Successfully.",
+                                 NotificationType.success);
+                    
                 }
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
             {
-                return Content("Could not add or edit Animal");
+                _clientNotification.AddSweetNotification("Error",
+                                "Could not add or edit Animal",
+                                NotificationType.error);
+                return RedirectToAction(nameof(Index));
+
             }
 
         }
@@ -79,6 +97,7 @@ namespace Pet.Controllers
             {
                 var animal = _animalRepository.GetSingleAnimal(id);
                 _animalRepository.Delete(animal);
+
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
