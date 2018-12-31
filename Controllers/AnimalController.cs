@@ -43,6 +43,10 @@ namespace Pet.Controllers
         [HttpPost]
         public IActionResult New(Animal animal, string IsEditMode)
         {
+            if(!ModelState.IsValid){
+                ViewBag.IsEditMode = IsEditMode;
+                return View(animal);
+            }
             try
             {
                 if (IsEditMode.Equals("FALSE"))
