@@ -11,5 +11,7 @@ namespace Pet.Repository
         void Delete(Animal animal);
         List<Animal> GetAllAnimals();
 
+        bool VerifyName(string name);
+
     }
 }

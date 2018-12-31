@@ -110,5 +110,14 @@ namespace Pet.Controllers
 
         }
 
+        public IActionResult VerifyName(string name)
+        {
+            if(_animalRepository.VerifyName(name))
+            {
+                return Json($"The {name} already exist in the Database.");
+            }
+            return Json(true);
+        }
+
     }
 }

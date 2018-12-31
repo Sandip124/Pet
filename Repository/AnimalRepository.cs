@@ -41,5 +41,11 @@ namespace Pet.Repository
             var animal = _context.Animals.FirstOrDefault(a=>a.Id == id);
             return animal;
         }
+
+        public bool VerifyName(string name)
+        {
+            return _context.Animals.Any(a=>a.Name == name);
+
+        }
     }
 }
