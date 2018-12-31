@@ -20,8 +20,13 @@ namespace Pet.Controllers
             _animalRepository = animalRepository;
             _clientNotification = clientNotification;
         }
-        public IActionResult Index()
+        public IActionResult Index(string search = null)
         {
+            if(!string.IsNullOrEmpty(search))
+            {
+                var foundAnimal = _animalRepository.SearchAnimal(search);
+                return View(foundAnimal);
+            }
             var animal = _animalRepository.GetAllAnimals();
             return View(animal);
         }
@@ -36,6 +41,7 @@ namespace Pet.Controllers
         public IActionResult New()
         {
             ViewBag.IsEditMode = "FALSE";
+            ViewBag.ButtonValue = "Add Animal";
             var animal = new Animal();
             return View(animal);
         }
@@ -85,6 +91,7 @@ namespace Pet.Controllers
             try
             {
                 ViewBag.IsEditMode = "TRUE";
+                ViewBag.ButtonValue = "Edit Animal";
                 var animal = _animalRepository.GetSingleAnimal(id);
                 return View("new", animal);
             }

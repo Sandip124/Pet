@@ -2,7 +2,22 @@
 
     <h2>All Animals</h2>
 
-    <p><a class="btn btn-primary" asp-action="New">Add New Animal</a></p>
+<div class="row">
+    <div class="col-md-2">
+        <a class="btn btn-primary" asp-action="New">Add New Animal</a>
+    </div>
+    <div class="col-md-10">
+        <form asp-action="Index" method="POST">
+            <div class="row input-group">
+                <input type="text" name="search" id="search" class="form-control">
+                <div class="input-group-btn">
+                    <input type="submit" value="search" class="btn btn-primary">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
     <table class="table table-bodered">
         <thead>
             <tr>

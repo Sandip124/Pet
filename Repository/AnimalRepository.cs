@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Pet.Data;
@@ -40,6 +41,19 @@ namespace Pet.Repository
         {
             var animal = _context.Animals.FirstOrDefault(a=>a.Id == id);
             return animal;
+        }
+
+        public List<Animal> SearchAnimal(string search)
+        {
+            int age;
+            bool success = Int32.TryParse(search,out age); 
+            if(!success)
+            {
+                age = 0;
+            }
+            return _context.Animals
+                                .Where(a=>a.Name.Contains(search) || a.Color.Contains(search) || a.Age == age)
+                                .ToList();
         }
 
         public bool VerifyName(string name)

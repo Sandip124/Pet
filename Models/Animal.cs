@@ -11,7 +11,7 @@ namespace Pet.Models
         [Remote(action: "VerifyName", controller: "Animal")]
         public string Name { get; set; }
         [Required]
-        [Range(0,5,ErrorMessage="{0} must be between {1} and {2} years.")]
+        [Range(1,5,ErrorMessage="{0} must be between {1} and {2} years.")]
         public int Age { get; set; }
         [Required]
         public string Color { get; set; }

@@ -12,6 +12,6 @@ namespace Pet.Repository
         List<Animal> GetAllAnimals();
 
         bool VerifyName(string name);
-
+        List<Animal> SearchAnimal(string search);
     }
 }
