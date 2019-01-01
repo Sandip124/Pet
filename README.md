@@ -1,10 +1,12 @@
 # Pet
-* an dotnet core project 
+
+* an dotnet core project
 
 Running a project
 
 * Create appsettings.json file on the Pet directory and put the following code
 
+```json
 {
   "ConnectionStrings": {
     "DefaultConnection": "server=yourhost;port=yourport;database=databasename;user=yourusername;password=yourpassword"
@@ -16,8 +18,9 @@ Running a project
   },
   "AllowedHosts": "*"
 }
+```
 
-After that 
+After that:
 
 Run the Dotnet command
 
@@ -25,4 +28,4 @@ Run the Dotnet command
 
 and run the node command
 
-*npm update
+* npm update
