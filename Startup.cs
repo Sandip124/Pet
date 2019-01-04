@@ -37,9 +37,9 @@ namespace Pet
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddScoped<Repository.IAnimalRepository, Repository.AnimalRepository>();
+            // services.AddScoped<Repository.IAnimalRepository, Repository.AnimalRepository>();
             
-            // services.AddTransient<IAnimalRepository,AnimalRepository>();
+            services.AddTransient<IAnimalRepository,AnimalRepository>();
             
             services.AddToastNotification();
 

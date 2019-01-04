@@ -70,18 +70,15 @@ namespace Pet.Controllers
                     _clientNotification.AddSweetNotification("Success",
                                  "Animal detail updated Successfully.",
                                  NotificationType.success);
-                    
                 }
-                return RedirectToAction(nameof(Index));
             }
             catch (Exception)
             {
                 _clientNotification.AddSweetNotification("Error",
                                 "Could not add or edit Animal",
                                 NotificationType.error);
-                return RedirectToAction(nameof(Index));
-
             }
+                return RedirectToAction(nameof(Index));
 
         }
 
@@ -94,6 +91,8 @@ namespace Pet.Controllers
                 ViewBag.ButtonValue = "Edit Animal";
                 var animal = _animalRepository.GetSingleAnimal(id);
                 return View("new", animal);
+
+
             }
             catch (Exception)
             {
